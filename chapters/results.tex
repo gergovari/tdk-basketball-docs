@@ -1,21 +1,17 @@
 %----------------------------------------------------------------------------
-\chapter{Eredmények és értékelés}
+\chapter{Eredmények}
 \label{ch:eredmenyek}
 %----------------------------------------------------------------------------
 
-\section{Pózbecslés és a hardveres architektúrák összehasonlítása}
-A rendszer teljesítményének értékelésekor éles kontraszt mutatkozott a két alkalmazott pózbecslő technológia között. A YOLO alapú skeleton tracking a TensorRT-vel történő hardveres gyorsítás révén kiemelkedő képkocka/másodperc (FPS) értéket biztosított, maximálisan kihasználva a GPU kapacitását. 
+\section{A szoftveres feldolgozás teljesítménye}
+A kifejlesztett rendszer sikeresen dolgozta fel az izolált videófelvételeket. A YOLO algoritmus grafikus kártyán futtatott, hardveresen gyorsított verziója kiemelkedően magas képkocka/másodperc (FPS) feldolgozási sebességet biztosított. A MediaPipe ezzel szemben a 33 darab, térbeli mélységinformációval is rendelkező landmark miatt lassabbnak bizonyult, de a párhuzamosítási technikák révén a feldolgozás átbocsátóképessége a gyakorlatban is használható szintre emelkedett. Az exponenciális mozgóátlagos zajszűrés mindkét technológia esetében sikeresen eliminálta az ízületi pontok apró remegéseit (\textit{jittering}).
 
-Ezzel szemben a MediaPipe CPU-alapú végrehajtása önmagában lassabb és erőforrásigényesebb volt. Ugyanakkor az alkalmazott többmagos párhuzamosítási technikák (parallelization) biztosították, hogy a MediaPipe is megfelelő átbocsátóképességgel működjön. Ez a kompromisszum megtérült: a MediaPipe által nyújtott 33 darab, mélységinformációval (Z-koordináta) is rendelkező landmark kulcsfontosságúnak bizonyult a komplexebb ízületi szögek számításánál, míg a YOLO kevesebb, 2D-s kulcspontrendszere kevésbé szolgáltatott részletgazdag adatokat a csukló és a kézfej finomabb mozgásairól. Az exponenciális mozgóátlag (EMA) szűrő bevezetése mindkét modell esetében csökkentette az ízületi pontok ,,\textit{jittering}'' (remegés) jelenségét.
+A vizualizáció részeként legenerált áttetsző képernyőn (lásd \ref{fig:debug_hud}. ábra) megfigyelhető volt, hogy az algoritmusok stabilan követik a játékosok mozgását, és az ebből számolt ízületi szögek (térd-, csípő- és könyökszög) megegyeznek a várt biomechanikai paraméterekkel.
 
-A kifejlesztett HUD vizualizáció segítségével elvégzett manuális validáció során a dobási fázisok és a valós idejű szögek (pl. könyöknyitás) pontosan lekövethetők voltak.
+\section{A dobás fázisainak azonosítása}
+Az elengedési pont (release point) detektálására szolgáló algoritmus megbízhatóan azonosította a dobás tetőpontját. Az adatok alapján rögzítésre került a sikeres és sikertelen dobások kinematikai görbéje. Megállapítást nyert, hogy a sikeres dobásoknál a könyök- és térdszögek időbeli kinyílása szinkronban történik, és a görbék lefutása a játékosok több dobása esetén is szorosabb, konzisztensebb mintázatot mutat. Ezzel szemben a rontott kísérleteknél megnövekedett a mozgás variabilitása, és gyakran aszinkronitás volt megfigyelhető az alsó és felső végtagok mozgásláncában az elengedés pillanatában.
 
-\section{A dobás elengedési pontjának detektálása}
-A dobás biomechanikai fázisainak azonosítására fejlesztett algoritmus megbízhatóan detektálta a dobás tetőpontját. Az adatok vizuális és statisztikai elemzése megerősítette a szakirodalmi felvetéseket: a sikeres dobások (Hit) esetén a könyök- és térdszögek időbeli összehangoltsága (kinematikai lánc szinkronizációja) szorosabb mintázatot követ, míg a rontott (Miss) kísérleteknél megfigyelhető a mozgás aszinkronitása az elengedés pillanatában.
+\section{A klasszifikációs modell pontossága}
+A betanított gépi tanulási modellek (\textit{Random Forest} és \textit{Gradient Boosting}) teljesítménye a csoportosított keresztvalidáció során került értékelésre. A hiperparaméter-hangolás után a legjobb modell 68\%-os átfogó prediktív pontosságot (accuracy) ért el a dobások eredményességének (bedobott vagy kihagyott) előrejelzésében. 
 
-\section{Klasszifikációs modell eredményei}
-A feldolgozott videók alapján kinyert idősoros funkciók felhasználásával betanított \textit{Random Forest} és \textit{Gradient Boosting} klasszifikátorok teljesítményét a \textit{StratifiedGroupKFold} keresztvalidáció segítségével értékeltük ki. 
-
-A kiértékelés során a legjobb modell (amely a hiperparaméter-hangolás során kiválasztásra került) 68\%-os prediktív pontosságot (accuracy) ért el a dobások kimenetelének előrejelzésében. Bár ez a mutató szignifikánsan jobb a véletlenszerű tippelésnél, a kísérletek rávilágítottak arra, hogy csupán a makro-kinematikai jellemzők (főbb ízületi szögek) alapján nem lehetséges determinisztikusan megjósolni minden dobás kimenetelét.
-
-A 68\%-os pontosság azt mutatja, hogy a dobás eredményességét rendkívül apró, finommotorikus tényezők is befolyásolják (például az ujjak leválásának sorrendje a labdáról, vagy a labda perdülete), amelyeket a számítógépes látásmód még 33 landmark esetén is csak korlátozottan tud érzékelni. Mindazonáltal a modellek a mozgáskoordinációs eltérések – különösen a térdhajlítás és a csuklósebesség szinkronizációja – alapján magas megbízhatósággal különítették el az alapvető hibás dobási mintázatokat az optimális végrehajtásoktól.
+A modell változóinak fontossági elemzése (feature importance) rámutatott arra, hogy a predikció során a legjelentősebb tényezők a térdhajlítás dinamikája, a csukló elmozdulásának egyenletessége, valamint ezen ízületek összehangolt mozgása voltak.

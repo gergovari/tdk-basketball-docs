@@ -1,31 +1,36 @@
 %----------------------------------------------------------------------------
-\chapter{Anyagok és módszerek}
+\chapter{Módszertan}
 \label{ch:modszer}
 %----------------------------------------------------------------------------
 
-\section{Adatgyűjtés és feldolgozási csővezeték (Pipeline)}
-A kutatáshoz szükséges videófelvételeket saját magunk rögzítettük aktív kosárlabdázók büntetődobásainak filmezésével. Bár a kamerakép statikus volt, a nyers felvételek így is tartalmaztak irreleváns részleteket vagy üresjáratokat a dobások között, ezért azokat különálló, valid dobási szekvenciákra vágva izoláltuk. A fájlnevek annotációja a dobás kimenetelét (hit: \texttt{-h}, miss: \texttt{-m}) kódolta, amely elengedhetetlen a későbbi felügyelt tanuláshoz (supervised learning).
+\section{Mérésben résztvevő személyek}
+A kutatás során amatőr és igazolt kosárlabda játékosok bevonásával történt az adatgyűjtés. A felvételeken szereplő személyek különböző tapasztalati szinttel rendelkeztek, ezáltal biztosítva a dobástechnikák és a mozgásmintázatok megfelelő variabilitását a gépi tanulási modell betanításához.
 
-A videóelemzést és az adatdúsítást Python szkriptekkel (\texttt{pipeline.py}) vezéreltük, amelyek a pózbecslő modellek kimenetét hasznosították. 
+\section{Mérési protokoll}
+A videófelvételek készítése valós környezetben, szabványos kosárlabdapályán történt. A mérési folyamat során a játékosok büntetődobásokat hajtottak végre, miközben a mozgásukat egy fix pozícióban rögzített okostelefon kamerája rögzítette oldalnézetből. A felvételek készítése során biztosítva lett, hogy a teljes test látható maradjon a dobás teljes időtartama alatt. A rögzített felvételeken feljegyzésre került minden egyes dobás kimenetele (sikeres vagy sikertelen találat), amely elengedhetetlen feltétele volt a későbbi felügyelt tanulásnak (supervised learning).
 
-\section{Pózbecslési modellek és hardveres gyorsítás}
-Az adatkinyerés során két különböző architektúrát integráltunk: a YOLO pózbecslő (skeleton tracking) modelljét, valamint a MediaPipe Tasks Vision API legpontosabb, ,,Heavy'' modelljét.
-
-A rendszer optimalizálása és az átbocsátóképesség (throughput) maximalizálása érdekében a következő megoldásokat alkalmaztuk:
+\section{Mérési eszközök bemutatása}
+Az adatkinyerés során két különböző, marker nélküli pózbecslő szoftveres eszköz integrálására és vizsgálatára került sor:
 \begin{itemize}
-    \item A YOLO modell fő előnye, hogy grafikus kártyán (GPU) futtatható. Ennek inferenciáját PyTorch-ról nagy teljesítményű TensorRT formátumra (\texttt{.engine}) alakítottuk át, amellyel rendkívül gyors végrehajtást értünk el.
-    \item A MediaPipe modell a YOLO 17 pontjával szemben 33 darab 3D-s testpontot (köztük finomabb kéz-landmarkokat) ad vissza vázanként, ami részletesebb kinematikai elemzést tesz lehetővé. Ennek a technológiának a hátránya, hogy implementációja processzorhoz (CPU) kötött, és önmagában nem gyorsítható GPU-val. Ezt a korlátot a CPU magokon végzett masszív aszinkron párhuzamosítással (parallelization és multiprocessing) hidaltuk át, hogy a feldolgozás ne képezzen szűk keresztmetszetet.
+    \item \textbf{YOLO (You Only Look Once):} Egy rendkívül gyors, grafikus kártyára (GPU) optimalizált algoritmus, amely 17 alapvető kétdimenziós (2D) ízületi pontot képes azonosítani.
+    \item \textbf{MediaPipe:} A Google által fejlesztett rendszer, amely 33 darab háromdimenziós (3D) testpontot (köztük a kézfej pontjait) határoz meg. Bár futtatása hagyományos processzoron (CPU) történik és önmagában lassabb, a több referenciapont miatt részletesebb kinematikai elemzést tesz lehetővé.
 \end{itemize}
 
-\section{Kinematikai paraméterek kinyerése}
-A felismert landmarkok alapján egyedi objektumorientált detektor osztályok kiszámítják a vizsgált ízületi szögeket. Kiemelt figyelmet fordítottunk a dobó kéz (handedness) dinamikus felismerésére és a dobás ciklusának fázisaira (pl. elengedési pont - release point), melyet a könyök magasságának csúcsértékével azonosítottunk.
+A feldolgozás felgyorsítása érdekében a YOLO esetében TensorRT nevű technológia alkalmazására került sor, amely a grafikus kártya számítási kapacitását optimalizálja. A MediaPipe hátránya pedig a processzormagokon végzett párhuzamosított futtatással (parallelization) lett kompenzálva, így biztosítva a megfelelő feldolgozási sebességet.
 
-A robusztusság érdekében a szoftver erős szűrőket (pl. EMA - exponenciális mozgóátlag) alkalmaz az adatok tisztítására. A hibás méréseket detektálja és vizuálisan megjelöli.
+\section{Adatfeldolgozás}
+A nyers videófelvételek első lépésben automatikusan feldarabolásra kerültek, így a folyamatos videókból izolált, önálló dobási szekvenciák (klipek) jöttek létre. Ezen klipek minden egyes képkockáján azonosításra kerültek az ízületi pontok (landmarkok) a pózbecslő algoritmusok segítségével.
 
-\section{HUD vizualizáció}
-A kifejlesztett vizualizációs modul egy modern, áttetsző hátterű Head-Up Display (HUD) felületet renderel a videóra. A HUD valós időben jeleníti meg a telemetriai adatokat, a kinematikai szögeket és a landmark koordinátákat, ami kritikus visszacsatolást nyújt a mérési metodika ellenőrzése során.
+A felismert landmarkok alapján kiszámításra kerültek a vizsgált ízületi szögek (például a térdhajlítás és a könyöknyitás szöge). A dobás elengedési pontja (release point) a könyök magasságának maximális értékéhez lett rendelve. A rögzített adatok zajszűrése exponenciális mozgóátlag (EMA) segítségével történt, amely kisimította az esetleges mérési pontatlanságokat, és stabil kinematikai görbéket eredményezett.
 
-\section{Gépi tanulási (Machine Learning) klasszifikátor}
-A kinyert ízületi adatokat bemenetként használjuk egy klasszifikátor betanításához, amelynek feladata a sikeres (Hit) és sikertelen (Miss) dobások predikciója. A nyers adatokból komplex idősoros funkciókat (time-series features) képeztünk: a kulcsízületek (csukló, könyök, váll, csípő, térd) Y-tengely menti elmozdulását 30 időlépésre (timestep) mintavételeztük újra lineáris interpolációval. Ezen felül olyan összefoglaló statisztikákat is számítottunk, mint a csukló mozgástartománya (range of motion), a sebesség az elengedés pillanatában, illetve a fázis aszimmetria.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.9\textwidth, keepaspectratio]{imgs/debug_hud.png}
+    \caption{A feldolgozó rendszer által készített vizualizáció, amely valós időben mutatja az azonosított ízületi pontokat és az aktuális hajlásszögeket.}
+    \label{fig:debug_hud}
+\end{figure}
 
-A predikcióhoz két népszerű együttes tanulási (ensemble) modellt értékeltünk ki: a \textit{Random Forest} (Véletlen Erdő) és a \textit{Histogram-based Gradient Boosting} (Gradiens Emelés) klasszifikátorokat. A hiperparaméterek optimalizálását Grid Search segítségével végeztük. A modell teszteléséhez szigorú, 5-szörös \textit{StratifiedGroupKFold} keresztvalidációt alkalmaztunk. Ez a csoportosított validáció kritikus lépés volt a mesterséges adatszivárgás (data leakage) megelőzése érdekében, mivel garantálta, hogy ugyanazon fizikai dobás különböző kameraállásokból rögzített felvételei mindig ugyanabba a (tanító vagy tesztelő) halmazba kerüljenek.
+\section{Statisztikai elemzés és gépi tanulás}
+A kinyert kinematikai adatokból komplex idősoros változók (features) kerültek képzésre. A kulcsízületek (csukló, könyök, váll, csípő, térd) függőleges elmozdulása 30 egyenlő időlépésre (timestep) lett felosztva lineáris interpolációval. Ezen felül olyan statisztikai mutatók is számításra kerültek, mint a csukló mozgástartománya vagy a sebesség az elengedés pillanatában.
+
+A predikcióhoz két együttes tanulási (ensemble) modell került betanításra: a \textit{Random Forest} (Véletlen Erdő) és a \textit{Gradient Boosting} (Gradiens Emelés). A modell megbízhatóságának tesztelésére egy 5-szörös keresztvalidációs (StratifiedGroupKFold) módszer alkalmazására került sor. Ennek az eljárásnak a lényege, hogy egy játékos azonos dobásai soha nem kerülhettek egyszerre a modell tanítására és tesztelésére használt adatok közé, elkerülve ezzel a torzított eredményeket (adatszivárgást).

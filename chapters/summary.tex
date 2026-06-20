@@ -1,12 +1,19 @@
 %----------------------------------------------------------------------------
-\chapter{\osszefoglalas}
+\chapter{Diszkusszió és Összefoglalás}
 \label{ch:osszefoglalas}
 %----------------------------------------------------------------------------
 
-Jelen Tudományos Diákköri dolgozatban bemutattunk egy saját fejlesztésű, komplex videóalapú biomechanikai elemző és klasszifikációs szoftvercsővezetéket, amely saját rögzítésű kosárlabda büntetődobások kinematikáját vizsgálja. A megoldás alapját modern, marker nélküli pózbecslési technológiák (YOLO és MediaPipe) adják, amelyek jelentősen redukálják a mozgáselemzés eszköz- és költségigényét a klasszikus optikai mozgásrögzítő rendszerekhez képest.
+Jelen Tudományos Diákköri dolgozatban egy komplex, videóalapú biomechanikai elemző szoftverrendszer került bemutatásra, amely saját rögzítésű kosárlabda büntetődobások kinematikáját vizsgálta marker nélküli pózbecslési technológiák (YOLO és MediaPipe) segítségével.
 
-A megvalósított szoftveres arhitektúra lefedi a kutatás teljes életciklusát a videók automatikus előfeldolgozásától és izolálásától kezdve az adatkinyerésig. Sikeresen integráltuk és összehasonlítottuk a TensorRT-vel GPU-n hardveresen felgyorsított YOLO-t, illetve a sokkal több referenciapontot (33 db) rögzítő, de CPU-ra szorítkozó MediaPipe-ot, amelynek teljesítményét kiterjedt aszinkron párhuzamosítással (parallelization) optimalizáltuk. Létrehoztunk egy valós idejű HUD vizualizációs réteget, valamint egyedi detektorokat fejlesztettünk az ízületi szögek robusztus meghatározásához.
+\section{Az eredmények értékelése}
+A kapott eredmények megerősítik a korábbi irodalmi hivatkozások állításait \cite{Button2003, Robins2006}, miszerint a dobás sikeressége szorosan összefügg a biomechanikai konzisztenciával és a kinematikai lánc szinkronizációjával. A vizsgált sikeres dobások esetében a felső és alsó végtagok mozgása harmonikusabb volt, míg a rontott kísérleteknél jelentősebb variabilitás mutatkozott.
 
-Az előállított adathalmazra támaszkodva egy gépi tanulási klasszifikátor modellt építettünk fel, mely bizonyította, hogy a biomechanikai konzisztencia szorosan összefügg a dobások sikerességével. Bár az egyetlen monokuláris kamerára épülő elemzések korlátozottak a mikromozgások rögzítésénél, a modell megbízhatóan felismerte a hibás mozgásmintázatokat.
+A kifejlesztett gépi tanulási modell által elért 68\%-os pontosság szignifikánsan meghaladja a véletlenszerű 50\%-os találati arányt, ami bizonyítja, hogy az algoritmus sikeresen megtalálta a hibás mozgásmintázatok és a rontott dobások közötti összefüggést. Ugyanakkor ez a mutató rámutat arra a tényre is, hogy csupán az alapvető ízületi szögek (makro-kinematika) elemzésével nem lehet 100\%-os bizonyossággal megjósolni egy büntetődobás kimenetelét. A dobás pontosságát rendkívül apró, finommotorikus tényezők (például a labda perdülete, vagy az ujjak leválásának milliszekundumos időzítése) is befolyásolják, amelyeket az alkalmazott számítógépes látásmód egyetlen kameraállásból, a jelenlegi felbontás mellett csak korlátozottan képes érzékelni.
 
-A kutatás eredményei rávilágítanak arra, hogy a marker nélküli pózbecslés – a GPU-s gyorsítások és a párhuzamosított architektúrák révén – elég érett technológia az élsportolói mozgáselemzés támogatásához. A jövőbeni továbbfejlesztések között szerepelhet a többkamerás rendszerek adatintegrációja a pontosság növelése érdekében, amellyel az edzők valós időben optimalizálhatnák a játékosok dobástechnikáját.
+\section{Limitációk és továbbfejlesztési lehetőségek}
+A kutatás legfőbb korlátját az egyetlen monokuláris kamera használata jelenti. Bár a MediaPipe képes a mélység (Z-tengely) becslésére is, a 2D-s videóképből történő 3D-s rekonstrukció torzításokat tartalmazhat. Ezt a limitációt a jövőben több, szinkronizált kameraállás (multi-view trianguláció) bevezetésével lehetne csökkenteni a térbeli pontosság maximalizálása érdekében.
+
+További javasolt továbbfejlesztési lehetőség a szoftver hordozható mobilkörnyezetbe (okostelefonos alkalmazásba) történő integrálása. A marker nélküli pózbecslés egyik legnagyobb előnye, hogy nem igényel drága laboratóriumi körülményeket. Egy telefonos applikáció révén az edzők és a játékosok valós időben, közvetlenül a pálya szélén kaphatnának objektív visszacsatolást a dobástechnikájukról.
+
+\section{Konklúzió}
+Összegzésképpen elmondható, hogy a modern számítógépes látásmódra épülő algoritmusok alkalmasak az élsportolói mozgáselemzés támogatására. Bár a technológia még rendelkezik korlátokkal a mikromozgások elemzése terén, a kifejlesztett szoftver sikeresen bizonyította, hogy a gépi tanulás és a videóalapú pózbecslés ötvözésével értékes, automatizált sportanalitikai eszközök hozhatók létre, amelyek segíthetik a teljesítményfokozást.
