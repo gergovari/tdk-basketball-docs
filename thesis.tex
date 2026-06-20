@@ -42,8 +42,9 @@
 %--------------------------------------------------------------------------------------
 
 %TODO Válaszd ki a munkatípust [Select thesis type]
-\selectbsc    % Szakdolgozat [Bachelor's]
+%\selectbsc    % Szakdolgozat [Bachelor's]
 %\selectmsc   % Diplomaterv [Master's]
+\selecttdk    % TDK dolgozat
 
 
 %--------------------------------------------------------------------------------------
@@ -82,16 +83,16 @@
 \def\supervisorRank{}
 
 % Dolgozat címe [Thesis title]
-\def\thesisTitle{Kosárlabda büntetődobás TODO}
+\def\thesisTitle{Kosárlabda büntetődobás biomechanikai elemzése videó alapján}
 
 % Kulcsszavak (a PDF-be) [Keywords (to PDF)]
-\def\keywords{menő, kulcs, szavak, TODO}
+\def\keywords{kosárlabda, biomechanika, pózbecslés, MediaPipe, kinematika}
 
 % Tanszék [Department]
 %TODO Válassz az alábbiak közül
 % \bmeatt    \bmeara  \bmeenergia  \bmeepget  \bmegtharom 
-% \bmemanuf  \bmehds  \bmemogi     \bmemm     \bmept
-\def\department{\bmemogi}
+% \bmemanuf  \bmehds  \bmemogi     \bmemm     \bmept \bmesport
+\def\department{\bmesport}
 
 %TODO Cseréld le a figures/tanszek_logo.pdf képet a tanszéked logójára!
 %     [Replace figures/tanszek_logo.pdf with the logo of your department]
@@ -168,6 +169,7 @@
 \addcontentsline{toc}{chapter}{\bibname}
 {
     \footnotesize  % Kisebb betűméret [Smaller font size]
+    \nocite{*}
     \bibliography{bib/mybib}
 }
 
