@@ -4,7 +4,7 @@
 
 .vscode/
 pdf/
-thesis.pdf
+#thesis.pdf
 /*.zip
 
 ### LaTeX ###
