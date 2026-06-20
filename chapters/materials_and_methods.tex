@@ -19,6 +19,29 @@ Az adatkinyerés során két különböző, marker nélküli pózbecslő szoftve
 A feldolgozás felgyorsítása érdekében a YOLO esetében TensorRT nevű technológia alkalmazására került sor, amely a grafikus kártya számítási kapacitását optimalizálja. A MediaPipe hátránya pedig a processzormagokon végzett párhuzamosított futtatással (parallelization) lett kompenzálva, így biztosítva a megfelelő feldolgozási sebességet.
 
 \section{Adatfeldolgozás}
+
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!10, rounded corners]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+\node (video) [process] {1. Nyers videó};
+\node (isolate) [process, right of=video, xshift=2.5cm] {2. Klipek izolálása};
+\node (pose) [process, right of=isolate, xshift=2.5cm] {3. Pózbecslés};
+\node (angle) [process, below of=pose, yshift=-0.5cm] {4. Szögszámítás};
+\node (feature) [process, left of=angle, xshift=-2.5cm] {5. Idősor képzés};
+\node (ml) [process, left of=feature, xshift=-2.5cm] {6. Gépi tanulás};
+
+\draw [arrow] (video) -- (isolate);
+\draw [arrow] (isolate) -- (pose);
+\draw [arrow] (pose) -- (angle);
+\draw [arrow] (angle) -- (feature);
+\draw [arrow] (feature) -- (ml);
+\end{tikzpicture}
+\caption{A biomechanikai adatfeldolgozás automatizált szoftveres folyamatábrája.}
+\label{fig:pipeline_flowchart}
+\end{figure}
 A nyers videófelvételek első lépésben automatikusan feldarabolásra kerültek, így a folyamatos videókból izolált, önálló dobási szekvenciák (klipek) jöttek létre. Ezen klipek minden egyes képkockáján azonosításra kerültek az ízületi pontok (landmarkok) a pózbecslő algoritmusok segítségével.
 
 A felismert landmarkok alapján kiszámításra kerültek a vizsgált ízületi szögek (például a térdhajlítás és a könyöknyitás szöge). A dobás elengedési pontja (release point) a könyök magasságának maximális értékéhez lett rendelve. A rögzített adatok zajszűrése exponenciális mozgóátlag (EMA) segítségével történt, amely kisimította az esetleges mérési pontatlanságokat, és stabil kinematikai görbéket eredményezett.

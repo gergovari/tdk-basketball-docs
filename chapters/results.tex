@@ -12,6 +12,37 @@ A vizualizáció részeként legenerált áttetsző képernyőn (lásd \ref{fig:
 Az elengedési pont (release point) detektálására szolgáló algoritmus megbízhatóan azonosította a dobás tetőpontját. Az adatok alapján rögzítésre került a sikeres és sikertelen dobások kinematikai görbéje. Megállapítást nyert, hogy a sikeres dobásoknál a könyök- és térdszögek időbeli kinyílása szinkronban történik, és a görbék lefutása a játékosok több dobása esetén is szorosabb, konzisztensebb mintázatot mutat. Ezzel szemben a rontott kísérleteknél megnövekedett a mozgás variabilitása, és gyakran aszinkronitás volt megfigyelhető az alsó és felső végtagok mozgásláncában az elengedés pillanatában.
 
 \section{A klasszifikációs modell pontossága}
-A betanított gépi tanulási modellek (\textit{Random Forest} és \textit{Gradient Boosting}) teljesítménye a csoportosított keresztvalidáció során került értékelésre. A hiperparaméter-hangolás után a legjobb modell 68\%-os átfogó prediktív pontosságot (accuracy) ért el a dobások eredményességének (bedobott vagy kihagyott) előrejelzésében. 
+A betanított gépi tanulási modellek (\textit{Random Forest} és \textit{Gradient Boosting}) teljesítménye a csoportosított keresztvalidáció során került értékelésre, mind a YOLO (17 testpont), mind a MediaPipe (33 testpont) által kinyert adathalmazokon. A hiperparaméter-hangolás után a legjobb modell mindkét adatbázis esetében azonos, 65\%-os átfogó prediktív pontosságot (accuracy) ért el a dobások eredményességének (bedobott vagy kihagyott) előrejelzésében. 
 
-A modell változóinak fontossági elemzése (feature importance) rámutatott arra, hogy a predikció során a legjelentősebb tényezők a térdhajlítás dinamikája, a csukló elmozdulásának egyenletessége, valamint ezen ízületek összehangolt mozgása voltak.
+A modell változóinak fontossági elemzése (feature importance) rámutatott arra, hogy a MediaPipe adathalmaz esetében a legjelentősebb tényező a mutatóujj (\textit{index finger}) mozgásdinamikája volt az elengedés körüli fázisban, míg a YOLO esetében a térdhajlítás kezdőfázisa dominált. A részletesebb hálózat használata tehát igazolta, hogy a finommotorikus elemek (például az ujjak mozgása) felismerése kiemelt fontosságú a predikcióban.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    xbar,
+    y axis line style = { opacity = 0 },
+    axis x line       = none,
+    tickwidth         = 0pt,
+    enlarge y limits  = 0.2,
+    enlarge x limits  = 0.02,
+    symbolic y coords = {Sarok emelkedése, Váll kezdőpozíciója, Térdhajlítás fázisa, Könyök nyitása, Mutatóujj dinamikája},
+    ytick=data,
+    nodes near coords,
+    width=11cm,
+    height=6cm,
+    bar width=15pt,
+    every node near coord/.append style={anchor=west},
+]
+\addplot[fill=blue!40] coordinates {
+    (0.67,Sarok emelkedése)
+    (0.79,Váll kezdőpozíciója)
+    (0.90,Térdhajlítás fázisa)
+    (0.91,Könyök nyitása)
+    (1.00,Mutatóujj dinamikája)
+};
+\end{axis}
+\end{tikzpicture}
+\caption{A gépi tanulási modell változóinak fontossági sorrendje (normalizált \textit{Feature Importance}).}
+\label{fig:feature_importance}
+\end{figure}
