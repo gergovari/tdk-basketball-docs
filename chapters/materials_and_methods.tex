@@ -4,7 +4,26 @@
 %----------------------------------------------------------------------------
 
 \section{Mérésben résztvevő személyek}
-A kutatás során amatőr és igazolt kosárlabda játékosok bevonásával történt az adatgyűjtés. A felvételeken szereplő személyek különböző tapasztalati szinttel rendelkeztek, ezáltal biztosítva a dobástechnikák és a mozgásmintázatok megfelelő variabilitását a gépi tanulási modell betanításához.
+A kutatás során 7 igazolt, versenyszerű kosárlabda múlttal rendelkező játékos (6 férfi, 1 nő) bevonásával történt az adatgyűjtés. A mérésben résztvevő összes személy jobbkezes volt. A férfi játékosok fizikai paraméterei és tapasztalati szintje részletesen rögzítésre került: átlagéletkoruk 20--21 év (2005--2006-os születésűek), átlagos testmagasságuk 185,8~cm ($179\text{--}196$~cm), míg átlagos testtömegük 82,2~kg ($72\text{--}92$~kg) volt. A játékosok mindannyian jelentős kosárlabda tapasztalattal rendelkeztek, átlagosan 12,7 év ($11\text{--}14$ év) igazolt sportmúlttal. Ezek a részletes fizikai és demográfiai adatok biztosították, hogy a gépi tanulási modell megfelelő és releváns variabilitású mintán kerüljön betanításra.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Nem} & \textbf{Születési év} & \textbf{Testmagasság (cm)} & \textbf{Testtömeg (kg)} & \textbf{Tapasztalat (év)} \\
+        \midrule
+        Nő           & -                     & -                          & -                       & -                         \\
+        Férfi        & 2005                  & 180                        & 72                      & 14                        \\
+        Férfi        & 2006                  & 179                        & 87                      & 14                        \\
+        Férfi        & 2006                  & 181                        & 73                      & 11                        \\
+        Férfi        & 2005                  & 186                        & 80                      & 14                        \\
+        Férfi        & 2005                  & 196                        & 92                      & 11                        \\
+        Férfi        & 2006                  & 193                        & 89                      & 12                        \\
+        \bottomrule
+    \end{tabular}
+    \caption{A mérésben résztvevő játékosok fizikai és demográfiai adatai (valamennyi résztvevő jobbkezes volt).}
+    \label{tab:participants}
+\end{table}
 
 \section{Mérési protokoll}
 A videófelvételek készítése valós környezetben, szabványos kosárlabdapályán történt. A mérési folyamat során a játékosok büntetődobásokat hajtottak végre, miközben a mozgásukat egy fix pozícióban rögzített okostelefon kamerája rögzítette oldalnézetből. A felvételek készítése során biztosítva lett, hogy a teljes test látható maradjon a dobás teljes időtartama alatt. A rögzített felvételeken feljegyzésre került minden egyes dobás kimenetele (sikeres vagy sikertelen találat), amely elengedhetetlen feltétele volt a későbbi felügyelt tanulásnak (supervised learning).
@@ -24,23 +43,23 @@ A feldolgozás felgyorsítása érdekében a YOLO esetében TensorRT nevű techn
 \tikzstyle{arrow} = [thick,->,>=stealth]
 
 \begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[node distance=2cm]
-\node (video) [process] {1. Nyers videó};
-\node (isolate) [process, right of=video, xshift=2.5cm] {2. Klipek izolálása};
-\node (pose) [process, right of=isolate, xshift=2.5cm] {3. Pózbecslés};
-\node (angle) [process, below of=pose, yshift=-0.5cm] {4. Szögszámítás};
-\node (feature) [process, left of=angle, xshift=-2.5cm] {5. Idősor képzés};
-\node (ml) [process, left of=feature, xshift=-2.5cm] {6. Gépi tanulás};
+    \centering
+    \begin{tikzpicture}[node distance=2cm]
+        \node (video) [process] {1. Nyers videó};
+        \node (isolate) [process, right of=video, xshift=2.5cm] {2. Klipek izolálása};
+        \node (pose) [process, right of=isolate, xshift=2.5cm] {3. Pózbecslés};
+        \node (angle) [process, below of=pose, yshift=-0.5cm] {4. Szögszámítás};
+        \node (feature) [process, left of=angle, xshift=-2.5cm] {5. Idősor képzés};
+        \node (ml) [process, left of=feature, xshift=-2.5cm] {6. Gépi tanulás};
 
-\draw [arrow] (video) -- (isolate);
-\draw [arrow] (isolate) -- (pose);
-\draw [arrow] (pose) -- (angle);
-\draw [arrow] (angle) -- (feature);
-\draw [arrow] (feature) -- (ml);
-\end{tikzpicture}
-\caption{A biomechanikai adatfeldolgozás automatizált szoftveres folyamatábrája.}
-\label{fig:pipeline_flowchart}
+        \draw [arrow] (video) -- (isolate);
+        \draw [arrow] (isolate) -- (pose);
+        \draw [arrow] (pose) -- (angle);
+        \draw [arrow] (angle) -- (feature);
+        \draw [arrow] (feature) -- (ml);
+    \end{tikzpicture}
+    \caption{A biomechanikai adatfeldolgozás automatizált szoftveres folyamatábrája.}
+    \label{fig:pipeline_flowchart}
 \end{figure}
 A nyers videófelvételek első lépésben automatikusan feldarabolásra kerültek, így a folyamatos videókból izolált, önálló dobási szekvenciák (klipek) jöttek létre. Ezen klipek minden egyes képkockáján azonosításra kerültek az ízületi pontok (landmarkok) a pózbecslő algoritmusok segítségével.
 
@@ -56,4 +75,4 @@ A felismert landmarkok alapján kiszámításra kerültek a vizsgált ízületi 
 \section{Statisztikai elemzés és gépi tanulás}
 A kinyert kinematikai adatokból komplex idősoros változók (features) kerültek képzésre. A kulcsízületek (csukló, könyök, váll, csípő, térd) függőleges elmozdulása 30 egyenlő időlépésre (timestep) lett felosztva lineáris interpolációval. Ezen felül olyan statisztikai mutatók is számításra kerültek, mint a csukló mozgástartománya vagy a sebesség az elengedés pillanatában.
 
-A predikcióhoz két együttes tanulási (ensemble) modell került betanításra: a \textit{Random Forest} (Véletlen Erdő) és a \textit{Gradient Boosting} (Gradiens Emelés). A modell megbízhatóságának tesztelésére egy 5-szörös keresztvalidációs (StratifiedGroupKFold) módszer alkalmazására került sor. Ennek az eljárásnak a lényege, hogy egy játékos azonos dobásai soha nem kerülhettek egyszerre a modell tanítására és tesztelésére használt adatok közé, elkerülve ezzel a torzított eredményeket (adatszivárgást).
+A predikcióhoz két együttes tanulási modell került betanításra: a \textit{Random Forest} (Véletlen Erdő) és a \textit{Gradient Boosting} (Gradiens Emelés). A modell megbízhatóságának tesztelésére egy 5-szörös keresztvalidációs (StratifiedGroupKFold) módszer alkalmazására került sor. Ennek az eljárásnak a lényege, hogy egy játékos azonos dobásai soha nem kerülhettek egyszerre a modell tanítására és tesztelésére használt adatok közé, elkerülve ezzel a torzított eredményeket (adatszivárgást).
