@@ -1,26 +1,12 @@
 %----------------------------------------------------------------------------
-\chapter{\osszefoglalas} % (Eredmények értékelése)
+\chapter{\osszefoglalas}
+\label{ch:osszefoglalas}
 %----------------------------------------------------------------------------
 
+Jelen Tudományos Diákköri dolgozatban bemutattunk egy saját fejlesztésű, komplex videóalapú biomechanikai elemző és klasszifikációs szoftvercsővezetéket, amely saját rögzítésű kosárlabda büntetődobások kinematikáját vizsgálja. A megoldás alapját modern, marker nélküli pózbecslési technológiák (YOLO és MediaPipe) adják, amelyek jelentősen redukálják a mozgáselemzés eszköz- és költségigényét a klasszikus optikai mozgásrögzítő rendszerekhez képest.
 
-\section{Eredmények}
-Az összefoglaló értékelés a három oldalt lehetőleg ne haladja meg! 
-Az elvégzett munka és eredményeinek bemutatása egyes szám első személyben fogalmazva.
+A megvalósított szoftveres arhitektúra lefedi a kutatás teljes életciklusát a videók automatikus előfeldolgozásától és izolálásától kezdve az adatkinyerésig. Sikeresen integráltuk és összehasonlítottuk a TensorRT-vel GPU-n hardveresen felgyorsított YOLO-t, illetve a sokkal több referenciapontot (33 db) rögzítő, de CPU-ra szorítkozó MediaPipe-ot, amelynek teljesítményét kiterjedt aszinkron párhuzamosítással (parallelization) optimalizáltuk. Létrehoztunk egy valós idejű HUD vizualizációs réteget, valamint egyedi detektorokat fejlesztettünk az ízületi szögek robusztus meghatározásához.
 
+Az előállított adathalmazra támaszkodva egy gépi tanulási klasszifikátor modellt építettünk fel, mely bizonyította, hogy a biomechanikai konzisztencia szorosan összefügg a dobások sikerességével. Bár az egyetlen monokuláris kamerára épülő elemzések korlátozottak a mikromozgások rögzítésénél, a modell megbízhatóan felismerte a hibás mozgásmintázatokat.
 
-\section{Javaslatok/Következtetések/Tanulságok} % Válassz egyet
-A feladat elkészítése során levont tanulságok összefoglalása. Javaslattétel, 
-továbbfejlesztési lehetősége bemutatása, előretekintés a jövőbe stb.
-
-% Keltezés, aláírás
-\vspace{0.5cm}
-
-\begin{flushleft}
-{Budapest, \today}
-\end{flushleft}
-
-\begin{flushright}
-\emph{\authorName}
-\end{flushright}
-
-\vfill
+A kutatás eredményei rávilágítanak arra, hogy a marker nélküli pózbecslés – a GPU-s gyorsítások és a párhuzamosított architektúrák révén – elég érett technológia az élsportolói mozgáselemzés támogatásához. A jövőbeni továbbfejlesztések között szerepelhet a többkamerás rendszerek adatintegrációja a pontosság növelése érdekében, amellyel az edzők valós időben optimalizálhatnák a játékosok dobástechnikáját.

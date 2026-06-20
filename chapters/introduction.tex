@@ -1,7 +1,12 @@
 %----------------------------------------------------------------------------
 \chapter{\bevezetes}
+\label{ch:bevezetes}
 %----------------------------------------------------------------------------
 
-A bevezető tartalmazza a diplomaterv-kiírás elemzését, történelmi előzményeit, a feladat indokoltságát (a motiváció leírását), az eddigi megoldásokat, és ennek tükrében a hallgató megoldásának összefoglalását.
+A kosárlabda az egyik legnépszerűbb sportág világszerte, amelyben a büntetődobás kritikus szerepet játszik a mérkőzések végkimenetelében. Mivel a büntetődobás egy zavartalan, rögzített távolságból végrehajtott statikus mozdulatsor, a sikeres végrehajtás szinte kizárólag a játékos technikáján és biomechanikai mozgásmintáján múlik. A magas szintű teljesítmény eléréséhez elengedhetetlen a mozgás optimalizálása, a dobás konzisztenciájának javítása és a hibák azonosítása.
 
-A bevezető szokás szerint a diplomaterv felépítésével záródik, azaz annak rövid leírásával, hogy melyik fejezet mivel foglalkozik.
+A hagyományos biomechanikai elemzések drága és eszközigényes optikai mozgásrögzítő (motion capture) rendszereket igényelnek, amelyek laboratóriumi környezethez kötöttek, így nehezen alkalmazhatók a mindennapi edzések során. A számítógépes látásmód (computer vision) és a mesterséges intelligencia rohamos fejlődésével azonban megjelentek az olyan marker nélküli pózbecslési eljárások, mint a MediaPipe, amelyek csupán egyetlen monokuláris kamerakép (pl. egy okostelefon videója) alapján képesek valós időben, nagy pontossággal meghatározni az emberi test térbeli ízületi pontjait (landmarkokat).
+
+Jelen Tudományos Diákköri (TDK) dolgozat célja egy olyan automatizált biomechanikai elemző és vizualizációs szoftveres csővezeték (pipeline) kidolgozása, amely képes kosárlabda büntetődobások videós felvételeiből kinematikai adatokat kinyerni. A kinyert térbeli adatok segítségével meghatározzuk a dobás szempontjából kritikus paramétereket (pl. könyök-, váll- és térdszögek, elengedési pont), majd egy gépi tanulási (Machine Learning) klasszifikációs modell segítségével kísérletet teszünk a dobás kimenetelének (sikeres vagy sikertelen) előrejelzésére. A rendszer célja, hogy visszacsatolást adjon a játékosoknak és edzőknek a mozgásminőségükről laboratóriumi eszközök nélkül.
+
+A dolgozat felépítése a következő: a \ref{ch:szakirodalom}. fejezet bemutatja a büntetődobás biomechanikájának elméleti hátterét és a marker nélküli pózbecslési megoldásokat. A \ref{ch:modszer}. fejezet részletezi az alkalmazott adatkészletet, az adatfeldolgozási csővezetéket (MediaPipe, TensorRT) és a klasszifikációs modell felépítését. A \ref{ch:eredmenyek}. fejezetben bemutatjuk a kinyert kinematikai eredményeket és a modell teljesítményét, végül az \ref{ch:osszefoglalas}. fejezetben összegezzük a kutatás tapasztalatait és a továbbfejlesztési lehetőségeket.

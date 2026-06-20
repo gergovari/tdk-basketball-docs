@@ -1,4 +1,14 @@
+%----------------------------------------------------------------------------
 \chapter{Szakirodalmi áttekintés}
 \label{ch:szakirodalom}
+%----------------------------------------------------------------------------
 
-Ebben a fejezetben a kosárlabda büntetődobás biomechanikai elemzéséhez kapcsolódó szakirodalmat tekintjük át, különös tekintettel a marker nélküli pózbecslési technikákra (pl. MediaPipe) és a dobás kinematikájára.
+\section{A kosárlabda büntetődobás biomechanikája}
+A kosárlabda büntetődobás kinematikai és biomechanikai sajátosságait a sporttudomány évtizedek óta vizsgálja \cite{Hudson1985}. A sikeres dobás egyik legfontosabb tényezője az optimális elengedési paraméterek (release conditions) megléte: az elengedési szög, az elengedési magasság és az elengedési sebesség \cite{Tran2008}. Az irodalom egyetért abban, hogy a jobb találati arány eléréséhez a magasabb elengedési pont és a megfelelő belépési szög biztosítása szükséges \cite{Miller1996, AgudoOrtega2014}. 
+
+Továbbá a mozgás koordinációja és variabilitása is meghatározó. \cite{Button2003} és \cite{Robins2006} kutatásai kimutatták, hogy a profi játékosok dobásai konzisztensebbek, és a felső és alsó végtagok harmonikus láncolatában (kinetic chain) kevesebb az eltérés a sikeres dobásoknál. A dobások kimenetelének (sikeres vagy hibás) összehasonlító elemzése rámutatott arra, hogy az ízületi szögek (térd, könyök, váll) dinamikája eltér a bedobott és a kihagyott helyzetekben \cite{Mullineaux2010}.
+
+\section{Marker nélküli pózbecslés a sportelemzésben}
+A mozgáselemzés hagyományosan markerekkel felszerelt optikai rendszerekkel történt, melyek pontossága magas, de alkalmazhatóságuk korlátozott \cite{Verhoeven2021}. A mélytanulás (deep learning) fejlődésével azonban a marker nélküli 2D és 3D pózbecslés forradalmasította a sportanalitikát \cite{Chen2021}. Az OpenPose \cite{Cao2017} mellett az elmúlt években a YOLO (You Only Look Once) család pózbecslő modelljei is hatalmas teret nyertek, mivel kimagasló inferencia sebességet kínálnak grafikus gyorsítókon (GPU). A YOLO jellemzően 17 alapvető 2D testpontot detektál robusztusan és rendkívül gyorsan.
+
+Ezzel párhuzamosan a Google által fejlesztett MediaPipe keretrendszer \cite{Lugaresi2019} egy másik kiemelkedő megoldást nyújt. A MediaPipe Pose modell a YOLO-val szemben 33 térbeli (3D) referenciapontot (landmark) biztosít, köztük az ujjak, a kézfej és az arc finomabb pontjait is, ami sokkal részletesebb alapot ad a valós idejű szög- és kinematikai számításokhoz. A legújabb kutatások már kifejezetten a MediaPipe-ot használják kosárlabda dobáselemzésre \cite{Koseki2023}. A jelen TDK munka ezen modern számítógépes látásmódon alapuló technológiákat – a YOLO és a MediaPipe előnyeit is kihasználva – integrálja egy teljesen automatizált adatfeldolgozó rendszerbe.
