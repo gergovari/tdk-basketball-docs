@@ -1698,9 +1698,9 @@ EXECUTE {init.accs4}
 EXECUTE {init.nfmt0}
 EXECUTE {init.nfmts}
 
-ITERATE {presort}
+% ITERATE {presort}
 
-SORT
+% SORT
 
 STRINGS { longest.label }
 
