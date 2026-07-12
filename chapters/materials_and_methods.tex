@@ -25,7 +25,7 @@ A kutatás során 7 igazolt, versenyszerű kosárlabda múlttal rendelkező ját
     \label{tab:participants}
 \end{table}
 
-\section{Mérési eszközök és beállítás (Camera Setup)}
+\section{Mérési eszközök és beállítás}
 A vizsgálat során a videóalapú pózbecslés mellett egy hagyományos, \textbf{OptiTrack Motive} 3D optikai mozgáskövető (mocap) rendszert is alkalmaztam referenciaként és a gépi tanulási modellek pontosságának növelése érdekében. A felvételeket párhuzamosan két okostelefonnal (egy Android és egy iOS rendszerű készülékkel) is rögzítettem, egységesen 1080p (Full HD) felbontásban és 60 fps (képkocka/másodperc) rögzítési sebességgel. A monokuláris pózbecslő rendszerek sajátossága, hogy nem igényelnek hagyományos 3D kamera kalibrációt, azonban a konzisztencia érdekében a kamerák dőlésszögét és magasságát minden felvételnél fixen tartottam.
 
 A \ref{fig:camera_setup}. ábra mutatja a mérés elrendezését. A játékos a szabványos büntetővonalon helyezkedett el, míg a kamerákat a játékostól balra, illetve jobbra, a gyűrűhöz kissé közelebb eső fix pozíciókban (oldalnézetből) állítottam fel, biztosítva, hogy a játékos teljes teste végig a látótérben maradjon.
@@ -38,29 +38,29 @@ A \ref{fig:camera_setup}. ábra mutatja a mérés elrendezését. A játékos a 
         \draw[thick] (-2, 0) -- (-2, 4.5); % Büntetőterület bal
         \draw[thick] (2, 0) -- (2, 4.5); % Büntetőterület jobb
         \draw[thick] (-2, 4.5) -- (2, 4.5); % Büntetővonal
-        
+
         % Gyűrű és palánk
         \draw[ultra thick, blue] (-0.9, 0) -- (0.9, 0) node[midway, below] {Palánk};
         \draw[thick, red] (0, 0.3) circle (0.2) node[above=0.2cm] {Gyűrű};
-        
+
         % Játékos
         \filldraw[black] (0, 4.5) circle (0.15) node[above=0.2cm] {Játékos};
-        
+
         % Kamerák
         \node[draw, rectangle, fill=gray!20, minimum width=1cm, minimum height=0.5cm] (camL) at (-3.5, 2.5) {Kamera (Bal)};
         \node[draw, rectangle, fill=gray!20, minimum width=1cm, minimum height=0.5cm] (camR) at (3.5, 2.5) {Kamera (Jobb)};
-        
+
         % Kamera látószögek
         \draw[dashed, ->] (camL.east) -- (-0.2, 4.4);
         \draw[dashed, ->] (camR.west) -- (0.2, 4.4);
-        
+
     \end{tikzpicture}
     \caption{A mérés sematikus elrendezése. A kamerák a játékoshoz képest oldalirányban, a gyűrű felé tolva helyezkedtek el.}
     \label{fig:camera_setup}
 \end{figure}
 
 \section{Mérési protokoll}
-A videófelvételeket valós környezetben, szabványos kosárlabdapályán készítettem. A mérést megelőzően a játékosok egy rövid, sportágspecifikus bemelegítést végeztek, amely 3-8 szabadon választott bemelegítő büntetődobásból állt. 
+A videófelvételeket valós környezetben, szabványos kosárlabdapályán készítettem. A mérést megelőzően a játékosok egy rövid, sportágspecifikus bemelegítést végeztek, amely 3-8 szabadon választott bemelegítő büntetődobásból állt.
 
 Ezt követően minden résztvevő 4 vagy 5 sorozatban hajtott végre 5-5 dobást. A dobások között 5-10 másodperc, míg a sorozatok között 1 perc pihenőidőt biztosítottam a fáradás minimalizálása érdekében. Néhány esetben egy-egy sorozatot technikai okok (pl. kitakarás) miatt újra kellett rögzítenem, illetve előfordult, hogy egyes játékosok kifejezett kérésére egy további (5.) sorozatot is felvettem. A felvételeken minden dobás kimenetelét (sikeres vagy sikertelen) manuálisan rögzítettem, amely elengedhetetlen feltétele volt a felügyelt gépi tanulásnak.
 
