@@ -1,5 +1,5 @@
 %----------------------------------------------------------------------------
-\chapter{Bevezetés és Szakirodalmi áttekintés}
+\chapter{Bevezetés és szakirodalmi áttekintés}
 \label{ch:bevezetes_es_szakirodalom}
 %----------------------------------------------------------------------------
 
@@ -8,7 +8,7 @@ A kosárlabda az egyik legnépszerűbb sportág világszerte, amelyben a büntet
 Ebben a fejezetben a kosárlabda büntetődobások biomechanikai hátterének, a sportban alkalmazott mozgáselemző eljárásoknak, valamint a számítógépes látásmódon alapuló legmodernebb pózbecslési technikáknak (például OpenPose, YOLO, MediaPipe) az irodalmát tekintem át. Célom, hogy bemutassam, hogyan jutott el a sporttudomány a hagyományos, optikai markerekre épülő költséges vizsgálatoktól az okostelefonnal is felvehető, mesterséges intelligencia által támogatott elemzésekig. Bemutatom azokat a korábbi tanulmányokat, módszereket és eredményeket, amelyek lefektették az automatizált dobáselemzés alapjait, és amelyeket a jelen tudományos diákköri munkámban is alkalmazok.
 
 \section{A kosárlabda büntetődobás jelentősége és kihívásai}
-A kosárlabda egy rendkívül dinamikus sportág, amelyben a dobások pontossága és stabilitása döntő szerepet játszik a mérkőzések kimenetelében. Különleges helyet foglal el a játékelemek között a büntetődobás (free throw). Szemben a mezőnydobásokkal (jump shot, lay-up), a büntetődobás egy zárt láncú (closed-skill) motoros feladat, amelyet a játékosok mindig azonos távolságról (a büntetővonaltól a gyűrű középpontjáig 4,225 méter), zavaró védők jelenléte nélkül, rögzített körülmények között hajtanak végre \cite{Gomez2015}. Ahogy arra Gómez és munkatársai \cite{Gomez2015} is rávilágítottak, ez az állandóság elméletileg tökéletes lehetőséget adna arra, hogy a játékosok rendkívül magas százalékkal értékesítsék ezeket a dobásokat, azonban a gyakorlatban a fizikai fáradtság és a pszichológiai nyomás miatt a büntetődobások hatékonysága sokszor még a profik körében is ingadozó. Mivel egy szoros mérkőzés végeredménye gyakran néhány büntetőn múlik, a büntetődobás technikájának optimalizálása évtizedek óta kiemelt kutatási terület a sporttudományban \cite{Hudson1985}. 
+A kosárlabda egy rendkívül dinamikus sportág, amelyben a dobások pontossága és stabilitása döntő szerepet játszik a mérkőzések kimenetelében. Különleges helyet foglal el a játékelemek között a büntetődobás (free throw). Szemben a mezőnydobásokkal (jump shot, lay-up), a büntetődobás egy zárt láncú (closed-skill) motoros feladat, amelyet a játékosok mindig azonos távolságról (a büntetővonaltól a gyűrű középpontjáig 4,225 méter), zavaró védők jelenléte nélkül, rögzített körülmények között hajtanak végre \cite{Gomez2015}. Ahogy arra Gómez és munkatársai \cite{Gomez2015} is rávilágítottak, ez az állandóság elméletileg tökéletes lehetőséget adna arra, hogy a játékosok rendkívül magas százalékkal értékesítsék ezeket a dobásokat, azonban a gyakorlatban a fizikai fáradtság és a pszichológiai nyomás miatt a büntetődobások hatékonysága sokszor még a profik körében is ingadozó. Mivel egy szoros mérkőzés végeredménye gyakran néhány büntetőn múlik, a büntetődobás technikájának optimalizálása évtizedek óta kiemelt kutatási terület a sporttudományban \cite{Hudson1985}.
 
 Egy laikus számára a dobás egyszerűnek tűnhet: a labdát egy bizonyos ívben a kosár felé kell juttatni. A biomechanikai valóság azonban az, hogy a dobó játékosnak tucatnyi ízület és izomcsoport munkáját kell töredékmásodperc alatt tökéletesen összehangolnia – a boka és térd hajlításától kezdve a csípő, váll és könyök mozgásán át egészen a csukló végső "ostorcsapásáig" (wrist snap). Ha a dobás kinetikai láncolatában (kinetic chain) bármilyen aszimmetria vagy időzítési hiba lép fel, a mozgási energia átvitele nem lesz optimális, ami rontott dobást eredményez.
 
@@ -54,10 +54,10 @@ A jelen kutatás szempontjából a legfontosabb mérföldkövet a Google által 
 A MediaPipe 33 testpontot (kulcspontot) biztosít, köztük a kézfej finomabb referenciapontjait (csukló, hüvelykujj, kisujj, mutatóujj). Egy olyan finommotoros feladatnál, mint a büntetődobás, ahol az utolsó ujjbegy (release point) pozíciója döntő, ezek a kulcspontok kritikus fontosságúak. Koseki és kutatócsoportja \cite{Koseki2023} 2023-ban kifejezetten a MediaPipe-ot használták kosárlabda dobáselemzésre, és megállapították, hogy a szűrt relatív ízületi szögek pontossága teljes mértékben alkalmas edzői elemző szoftverek megalkotására.
 
 \begin{figure}[!ht]
-\centering
-\includegraphics[width=0.6\textwidth, keepaspectratio]{imgs/mediapipe_landmarks.png}
-\caption{A MediaPipe által detektált 33 térbeli kulcspont rendszere.}
-\label{fig:mediapipe_landmarks}
+    \centering
+    \includegraphics[width=0.6\textwidth, keepaspectratio]{imgs/mediapipe_landmarks.png}
+    \caption{A MediaPipe által detektált 33 térbeli kulcspont rendszere.}
+    \label{fig:mediapipe_landmarks}
 \end{figure}
 
 A \ref{fig:mediapipe_landmarks}. ábrán látható, hogy a modell miként azonosítja be az emberi test kulcspontjait, amelyek alapján a kinematikai számítások elvégezhetők.
@@ -67,12 +67,12 @@ A marker nélküli pózbecslők nyers adatait a mozgási elmosódás és ruhatak
 
 A szűrt 3D vektorokból skaláris szorzat és trigonometrikus függvények segítségével kiszámíthatók a kulcsízületek – a boka, a térd, a csípő, a váll és a könyök – szögei \cite{Mullineaux2010}. Ezeknek a paramétereknek az időbeli alakulása alkotja a dobás \textbf{kinematikai idősorát}. Egy tipikus dobás idősorában egyértelműen azonosítható a dobás felkészülési szakasza (előkészítő guggolás, flexió), a felszálló szakasz (extenzió), az elengedés pillanata (release point), és a lecsengő, kísérő szakasz (follow-through). A kinetikai lánc (kinetic chain) vizsgálata a hagyományos kinematikában bevett szokás, azonban az egykamerás pózbecslési megoldások nem képesek erő- és nyomatékadatok kinyerésére, így jelen szoftverben a klasszikus értelemben vett kinetikai számítások helyett a kinematikai paraméterek fázisviszonyainak elemzésére szorítkozom.
 
-Ahogy az adatmennyiség megnőtt, megnyílt a tér a gépi tanulási (Machine Learning, ML) algoritmusok előtt a sportban is. A kutatások egyre gyakrabban alkalmazzák a begyűjtött kinematikai idősorokat a dobás kimenetelének (találat vagy rontás) predikciójára \cite{Chen2021}. Különféle osztályozó modellek – mint a Random Forest (Véletlen Erdő) vagy a Support Vector Machines (Támogató Vektor Gépek, SVM) – képesek megragadni azokat az apró, több dimenziós összefüggéseket a mozgásban, amelyeket az emberi szem nem észlel. 
+Ahogy az adatmennyiség megnőtt, megnyílt a tér a gépi tanulási (Machine Learning, ML) algoritmusok előtt a sportban is. A kutatások egyre gyakrabban alkalmazzák a begyűjtött kinematikai idősorokat a dobás kimenetelének (találat vagy rontás) predikciójára \cite{Chen2021}. Különféle osztályozó modellek – mint a Random Forest (Véletlen Erdő) vagy a Support Vector Machines (Támogató Vektor Gépek, SVM) – képesek megragadni azokat az apró, több dimenziós összefüggéseket a mozgásban, amelyeket az emberi szem nem észlel.
 
 Ezek a rendszerek a jövőben proaktív eszközként működhetnek: egy okostelefonos alkalmazás valós időben figyelmeztetheti az edzőt a fáradásból adódó hibás dobástechnikára, még a teljesítményromlás vagy sérülés előtt. Jelen TDK dolgozat egy ilyen nyílt forráskódú, Python-alapú keretrendszert valósít meg, amely a MediaPipe pózbecslés és az arra épülő gépi tanulás alkalmazásával profi szintű kinematikai jelentéseket állít elő, hidat építve a számítógépes látás laboratóriumi tudománya és a gyakorlati sportedzés világa közé.
 
 \section{Célkitűzések}
-Jelen Tudományos Diákköri (TDK) munka célja egy olyan automatizált biomechanikai elemző szoftverrendszer kidolgozása, amely képes kosárlabda büntetődobások videós felvételeiből kinematikai adatokat kinyerni marker nélküli pózbecslés, valamint OptiTrack Mocap adatok felhasználásával. 
+Jelen Tudományos Diákköri (TDK) munka célja egy olyan automatizált biomechanikai elemző szoftverrendszer kidolgozása, amely képes kosárlabda büntetődobások videós felvételeiből kinematikai adatokat kinyerni marker nélküli pózbecslés, valamint OptiTrack Mocap adatok felhasználásával.
 A kutatás során az alábbi célokat fogalmaztam meg:
 \begin{itemize}
     \item A dobás szempontjából kritikus paraméterek (boka-, térd-, csípő-, váll- és könyökszögek, extenzió, elengedési pont) folyamatos nyomon követése a mozgás során.
