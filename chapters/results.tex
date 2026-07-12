@@ -67,7 +67,7 @@ Az elengedési pont (release point) detektálására szolgáló algoritmus megb�
 \section{A klasszifikációs modell pontossága}
 A betanított gépi tanulási modellek (\textit{Random Forest} és \textit{Gradient Boosting}) teljesítményét a csoportosított keresztvalidáció során értékeltem a YOLO (17 kulcspont), a MediaPipe (33 kulcspont), valamint a hagyományos OptiTrack Mocap (130 egyedi dobás) által kinyert adathalmazokon. A hiperparaméter-hangolás után a videóalapú adathalmazok (YOLO és MediaPipe) esetében a legjobb modell átlagosan 65\%-os átfogó prediktív pontosságot (accuracy) ért el a dobások eredményességének (bedobott vagy kihagyott) előrejelzésében. Ezzel szemben a 3D marker-alapú OptiTrack Motive adatokon betanított \textit{Random Forest} modell szignifikánsan jobban teljesített, elérve a \textbf{69,30\%-os keresztvalidációs pontosságot}. Ez az eredmény bizonyítja, hogy a valós, nagy pontosságú térbeli 3D kinematikai adatok alkalmazása érezhetően növeli az algoritmus prediktív erejét a 2D videós alapvonalhoz (baseline) képest.
 
-A modell változóinak fontossági elemzése (feature importance) rámutatott arra, hogy a MediaPipe adathalmaz esetében a legjelentősebb tényező a mutatóujj (\textit{index finger}) mozgásdinamikája volt az elengedés körüli fázisban, míg a YOLO esetében a térdflexió kezdőfázisa dominált. A Mocap adatok esetében ugyanakkor a leginkább meghatározó tényezőnek a \textbf{váll és a könyök valós 3D-s szöge} (\textit{shoulder angle} és \textit{elbow x}) bizonyult közvetlenül a dobás tetőpontján. A komplex térbeli adatok használata tehát igazolta, hogy a felső végtagok valós 3D kinematikájának, illetve a finommotorikus elemek (például az ujjak mozgása) felismerése kiemelt fontosságú a sikeres predikcióban.
+A modell változóinak fontossági elemzése (feature importance) rámutatott arra, hogy a MediaPipe adathalmaz esetében a legjelentősebb tényező a mutatóujj (\textit{index finger}) sebességprofilja és a csuklóhoz viszonyított relatív elmozdulása volt az elengedés körüli fázisban, míg a YOLO esetében a térdflexió kezdőfázisa dominált. A Mocap adatok esetében ugyanakkor a leginkább meghatározó tényezőnek a \textbf{váll és a könyök valós 3D-s szöge} (\textit{shoulder angle} és \textit{elbow x}) bizonyult közvetlenül a dobás tetőpontján. A komplex térbeli adatok használata tehát igazolta, hogy a felső végtagok valós 3D kinematikájának, illetve a finommotorikus elemek (például az ujjak mozgása) felismerése kiemelt fontosságú a sikeres predikcióban.
 
 \begin{figure}[!ht]
 \centering
@@ -79,7 +79,7 @@ A modell változóinak fontossági elemzése (feature importance) rámutatott ar
     tickwidth         = 0pt,
     enlarge y limits  = 0.2,
     enlarge x limits  = 0.02,
-    symbolic y coords = {Sarok emelkedése, Váll kezdőpozíciója, Térdflexió fázisa, Könyök extenziója, Mutatóujj dinamikája},
+    symbolic y coords = {Sarok emelkedése, Váll kezdőpozíciója, Térdflexió fázisa, Könyök extenziója, Mutatóujj elmozdulása},
     ytick=data,
     nodes near coords,
     width=11cm,
@@ -92,7 +92,7 @@ A modell változóinak fontossági elemzése (feature importance) rámutatott ar
     (0.79,Váll kezdőpozíciója)
     (0.90,Térdflexió fázisa)
     (0.91,Könyök extenziója)
-    (1.00,Mutatóujj dinamikája)
+    (1.00,Mutatóujj elmozdulása)
 };
 \end{axis}
 \end{tikzpicture}
