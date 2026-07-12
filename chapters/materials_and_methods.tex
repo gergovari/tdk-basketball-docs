@@ -4,40 +4,68 @@
 %----------------------------------------------------------------------------
 
 \section{Mérésben résztvevő személyek}
-A kutatás során 7 igazolt, versenyszerű kosárlabda múlttal rendelkező játékos (6 férfi, 1 nő) bevonásával történt az adatgyűjtés. A mérésben résztvevő összes személy jobbkezes volt. A férfi játékosok fizikai paraméterei és tapasztalati szintje részletesen rögzítésre került: átlagéletkoruk 20--21 év (2005--2006-os születésűek), átlagos testmagasságuk 185,8~cm ($179\text{--}196$~cm), míg átlagos testtömegük 82,2~kg ($72\text{--}92$~kg) volt. A játékosok mindannyian jelentős kosárlabda tapasztalattal rendelkeztek, átlagosan 12,7 év ($11\text{--}14$ év) igazolt sportmúlttal. Ezek a részletes fizikai és demográfiai adatok biztosították, hogy a gépi tanulási modell megfelelő és releváns variabilitású mintán kerüljön betanításra.
+A kutatás során 7 igazolt, versenyszerű kosárlabda múlttal rendelkező játékos (6 férfi, 1 nő) bevonásával végeztem az adatgyűjtést. Kizárólag sérülésmentes sportolókat vontam be a vizsgálatba. A mérésben résztvevő összes személy jobbkezes volt. A játékosok fizikai paramétereit és tapasztalati szintjét részletesen rögzítettem (lásd \ref{tab:participants}. táblázat). A teljes minta átlagéletkora $20{,}3 \pm 0{,}5$ év, átlagos testmagassága $185{,}8 \pm 7{,}0$~cm, míg átlagos testtömege $82{,}2 \pm 8{,}3$~kg volt. A résztvevők átlagosan $12{,}7 \pm 1{,}3$ év igazolt sportmúlttal rendelkeztek. Ezek a részletes fizikai és demográfiai adatok biztosították, hogy a gépi tanulási modell megfelelő és releváns variabilitású mintán kerüljön betanításra.
 
 \begin{table}[!ht]
     \centering
     \begin{tabular}{lcccc}
         \toprule
-        \textbf{Nem} & \textbf{Születési év} & \textbf{Testmagasság (cm)} & \textbf{Testtömeg (kg)} & \textbf{Tapasztalat (év)} \\
+        \textbf{Nem} & \textbf{Életkor (év)} & \textbf{Testmagasság (cm)} & \textbf{Testtömeg (kg)} & \textbf{Tapasztalat (év)} \\
         \midrule
         Nő           & -                     & -                          & -                       & -                         \\
-        Férfi        & 2005                  & 180                        & 72                      & 14                        \\
-        Férfi        & 2006                  & 179                        & 87                      & 14                        \\
-        Férfi        & 2006                  & 181                        & 73                      & 11                        \\
-        Férfi        & 2005                  & 186                        & 80                      & 14                        \\
-        Férfi        & 2005                  & 196                        & 92                      & 11                        \\
-        Férfi        & 2006                  & 193                        & 89                      & 12                        \\
+        Férfi        & 20                    & 180                        & 72                      & 14                        \\
+        Férfi        & 19                    & 179                        & 87                      & 14                        \\
+        Férfi        & 19                    & 181                        & 73                      & 11                        \\
+        Férfi        & 20                    & 186                        & 80                      & 14                        \\
+        Férfi        & 20                    & 196                        & 92                      & 11                        \\
+        Férfi        & 19                    & 193                        & 89                      & 12                        \\
         \bottomrule
     \end{tabular}
-    \caption{A mérésben résztvevő játékosok fizikai és demográfiai adatai (valamennyi résztvevő jobbkezes volt).}
+    \caption{A mérésben résztvevő játékosok fizikai és demográfiai adatai. Valamennyi résztvevő jobbkezes volt.}
     \label{tab:participants}
 \end{table}
 
+\section{Mérési eszközök és beállítás (Camera Setup)}
+A vizsgálat során a videóalapú pózbecslés mellett egy hagyományos, \textbf{OptiTrack Motive} 3D optikai mozgáskövető (mocap) rendszert is alkalmaztam referenciaként és a gépi tanulási modellek pontosságának növelése érdekében. A felvételeket párhuzamosan két okostelefonnal (egy Android és egy iOS rendszerű készülékkel) is rögzítettem, egységesen 1080p (Full HD) felbontásban és 60 fps (képkocka/másodperc) rögzítési sebességgel. A monokuláris pózbecslő rendszerek sajátossága, hogy nem igényelnek hagyományos 3D kamera kalibrációt, azonban a konzisztencia érdekében a kamerák dőlésszögét és magasságát minden felvételnél fixen tartottam.
+
+A \ref{fig:camera_setup}. ábra mutatja a mérés elrendezését. A játékos a szabványos büntetővonalon helyezkedett el, míg a kamerákat a játékostól balra, illetve jobbra, a gyűrűhöz kissé közelebb eső fix pozíciókban (oldalnézetből) állítottam fel, biztosítva, hogy a játékos teljes teste végig a látótérben maradjon.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}
+        % Pálya határai (vonalak)
+        \draw[thick] (-4, 0) -- (4, 0); % Alapvonal
+        \draw[thick] (-2, 0) -- (-2, 4.5); % Büntetőterület bal
+        \draw[thick] (2, 0) -- (2, 4.5); % Büntetőterület jobb
+        \draw[thick] (-2, 4.5) -- (2, 4.5); % Büntetővonal
+        
+        % Gyűrű és palánk
+        \draw[ultra thick, blue] (-0.9, 0) -- (0.9, 0) node[midway, below] {Palánk};
+        \draw[thick, red] (0, 0.3) circle (0.2) node[above=0.2cm] {Gyűrű};
+        
+        % Játékos
+        \filldraw[black] (0, 4.5) circle (0.15) node[above=0.2cm] {Játékos};
+        
+        % Kamerák
+        \node[draw, rectangle, fill=gray!20, minimum width=1cm, minimum height=0.5cm] (camL) at (-3.5, 2.5) {Kamera (Bal)};
+        \node[draw, rectangle, fill=gray!20, minimum width=1cm, minimum height=0.5cm] (camR) at (3.5, 2.5) {Kamera (Jobb)};
+        
+        % Kamera látószögek
+        \draw[dashed, ->] (camL.east) -- (-0.2, 4.4);
+        \draw[dashed, ->] (camR.west) -- (0.2, 4.4);
+        
+    \end{tikzpicture}
+    \caption{A mérés sematikus elrendezése. A kamerák a játékoshoz képest oldalirányban, a gyűrű felé tolva helyezkedtek el.}
+    \label{fig:camera_setup}
+\end{figure}
+
 \section{Mérési protokoll}
-A videófelvételek készítése valós környezetben, szabványos kosárlabdapályán történt. A mérési folyamat során a játékosok büntetődobásokat hajtottak végre, miközben a mozgásukat egy fix pozícióban rögzített okostelefon kamerája rögzítette oldalnézetből. A felvételek készítése során biztosítva lett, hogy a teljes test látható maradjon a dobás teljes időtartama alatt. A rögzített felvételeken feljegyzésre került minden egyes dobás kimenetele (sikeres vagy sikertelen találat), amely elengedhetetlen feltétele volt a későbbi felügyelt tanulásnak (supervised learning).
+A videófelvételeket valós környezetben, szabványos kosárlabdapályán készítettem. A mérést megelőzően a játékosok egy rövid, sportágspecifikus bemelegítést végeztek, amely 3-8 szabadon választott bemelegítő büntetődobásból állt. 
 
-\section{Mérési eszközök bemutatása}
-Az adatkinyerés során két különböző, marker nélküli pózbecslő szoftveres eszköz integrálására és vizsgálatára került sor:
-\begin{itemize}
-    \item \textbf{YOLO (You Only Look Once):} Egy rendkívül gyors, grafikus kártyára (GPU) optimalizált algoritmus, amely 17 alapvető kétdimenziós (2D) ízületi pontot képes azonosítani.
-    \item \textbf{MediaPipe:} A Google által fejlesztett rendszer, amely 33 darab háromdimenziós (3D) testpontot (köztük a kézfej pontjait) határoz meg. Bár futtatása hagyományos processzoron (CPU) történik és önmagában lassabb, a több referenciapont miatt részletesebb kinematikai elemzést tesz lehetővé.
-\end{itemize}
-
-A feldolgozás felgyorsítása érdekében a YOLO esetében TensorRT nevű technológia alkalmazására került sor, amely a grafikus kártya számítási kapacitását optimalizálja. A MediaPipe hátránya pedig a processzormagokon végzett párhuzamosított futtatással (parallelization) lett kompenzálva, így biztosítva a megfelelő feldolgozási sebességet.
+Ezt követően minden résztvevő 4 vagy 5 sorozatban hajtott végre 5-5 dobást. A dobások között 5-10 másodperc, míg a sorozatok között 1 perc pihenőidőt biztosítottam a fáradás minimalizálása érdekében. Néhány esetben egy-egy sorozatot technikai okok (pl. kitakarás) miatt újra kellett rögzítenem, illetve előfordult, hogy egyes játékosok kifejezett kérésére egy további (5.) sorozatot is felvettem. A felvételeken minden dobás kimenetelét (sikeres vagy sikertelen) manuálisan rögzítettem, amely elengedhetetlen feltétele volt a felügyelt gépi tanulásnak.
 
 \section{Adatfeldolgozás}
+A szoftveres adatfeldolgozás során nyertem ki a biomechanikai paramétereket a videókból. A folyamat lépéseit a \ref{fig:pipeline_flowchart}. ábra szemlélteti.
 
 \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!10, rounded corners]
 \tikzstyle{arrow} = [thick,->,>=stealth]
@@ -61,18 +89,28 @@ A feldolgozás felgyorsítása érdekében a YOLO esetében TensorRT nevű techn
     \caption{A biomechanikai adatfeldolgozás automatizált szoftveres folyamatábrája.}
     \label{fig:pipeline_flowchart}
 \end{figure}
-A nyers videófelvételek első lépésben automatikusan feldarabolásra kerültek, így a folyamatos videókból izolált, önálló dobási szekvenciák (klipek) jöttek létre. Ezen klipek minden egyes képkockáján azonosításra kerültek az ízületi pontok (landmarkok) a pózbecslő algoritmusok segítségével.
 
-A felismert landmarkok alapján kiszámításra kerültek a vizsgált ízületi szögek (például a térdhajlítás és a könyöknyitás szöge). A dobás elengedési pontja (release point) a könyök magasságának maximális értékéhez lett rendelve. A rögzített adatok zajszűrése exponenciális mozgóátlag (EMA) segítségével történt, amely kisimította az esetleges mérési pontatlanságokat, és stabil kinematikai görbéket eredményezett.
+A nyers videófelvételeket első lépésben automatikusan feldaraboltam, így önálló dobási klipek jöttek létre. A 3. lépésben (Pózbecslés) két különböző marker nélküli algoritmust integráltam a rendszerbe, amelyeket a precízebb elemzés érdekében kiegészítettem az OptiTrack rendszerből származó adatokkal:
+\begin{itemize}
+    \item \textbf{YOLO (You Only Look Once):} GPU-ra optimalizált (TensorRT gyorsítással), ami 17 alapvető 2D kulcspontot azonosít.
+    \item \textbf{MediaPipe:} 33 darab térbeli (3D) kulcspontot (köztük a kézfej pontjait) határoz meg. CPU-n fut, de párhuzamosítással kellően gyors, és a több referenciapont miatt részletesebb kinematikai elemzést tesz lehetővé.
+    \item \textbf{OptiTrack Motive (Mocap):} Marker-alapú rendszer, amely fizikai markerek alapján milliméteres pontossággal követi a csontváz (skeleton) térbeli mozgását. Az adatok feldolgozásánál egy robusztus algoritmust alkalmaztam a különböző rögzítési azonosítók (pl. Skeleton1, Skeleton3) felismerésére. A rendszer minden dobásnál fixen ellenőrizte a legfontosabb 9 alapízület (pl. csukló, könyök, váll, térd) meglétét.
+\end{itemize}
+
+A felismert kulcspontok (illetve az OptiTrack markerek) alapján kiszámítottam a vizsgált ízületi szögeket (például a térdhajlítás és a könyök extenzió szöge). A dobás elengedési pontja (release point) a videós adatoknál a csukló Y-koordinátájának (függőleges) maximális értékéhez, az OptiTrack adatoknál pedig az ujjak markerének csúcspontjához lett rendelve. A Mocap adatok esetében a marker-kiesések kompenzálására az egyedi ujjmarkerek hiánya esetén az alapértelmezett kézfej (FIN) marker szolgált referenciaként, így garantálva a dobásonkénti konstans 527 bemeneti változót (feature).
+
+A nyers idősorok zajszűréséhez egy Gauss-simítást (Gaussian filter) alkalmaztam. Fontos megjegyezni, hogy bár a biomechanikában gyakran használnak Butterworth szűrőt, a jelenlegi szűrési eljárást azért választottam, mert ez a módszer kiválóan megőrzi a görbék lokális maximumait és minimumait anélkül, hogy fáziseltolódást okozna (vagyis az elengedés pillanatának időbeli helyzete nem tolódott el).
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.9\textwidth, keepaspectratio]{imgs/debug_hud.png}
-    \caption{A feldolgozó rendszer által készített vizualizáció, amely valós időben mutatja az azonosított ízületi pontokat és az aktuális hajlásszögeket.}
+    \caption{A feldolgozó rendszer által készített vizualizáció, amely valós időben mutatja az azonosított kulcspontokat és az aktuális hajlásszögeket.}
     \label{fig:debug_hud}
 \end{figure}
 
-\section{Statisztikai elemzés és gépi tanulás}
-A kinyert kinematikai adatokból komplex idősoros változók (features) kerültek képzésre. A kulcsízületek (csukló, könyök, váll, csípő, térd) függőleges elmozdulása 30 egyenlő időlépésre (timestep) lett felosztva lineáris interpolációval. Ezen felül olyan statisztikai mutatók is számításra kerültek, mint a csukló mozgástartománya vagy a sebesség az elengedés pillanatában.
+A \ref{fig:debug_hud}. ábra azt a valós idejű vizualizációt mutatja be, amelyet az adatok ellenőrzésére hoztam létre.
 
-A predikcióhoz két együttes tanulási modell került betanításra: a \textit{Random Forest} (Véletlen Erdő) és a \textit{Gradient Boosting} (Gradiens Emelés). A modell megbízhatóságának tesztelésére egy 5-szörös keresztvalidációs (StratifiedGroupKFold) módszer alkalmazására került sor. Ennek az eljárásnak a lényege, hogy egy játékos azonos dobásai soha nem kerülhettek egyszerre a modell tanítására és tesztelésére használt adatok közé, elkerülve ezzel a torzított eredményeket (adatszivárgást).
+\section{Gépi tanulás}
+A kinyert kinematikai adatokból komplex idősoros változókat (features) képeztem. A kulcsízületek (csukló, könyök, váll, csípő, térd, boka) függőleges elmozdulását és ízületi szögeit 30 egyenlő időlépésre (timestep) osztottam fel. Ezen felül olyan másodlagos paramétereket is meghatároztam, mint a csukló mozgástartománya, vagy a csukló sebessége az elengedés pillanatában.
+
+A predikcióhoz együttes tanulási (ensemble) modelleket tanítottam be: a \textit{Random Forest} (Véletlen Erdő) és a \textit{Gradient Boosting} (Gradiens Emelés) algoritmusokat használtam. A modellek megbízhatóságának és általánosító képességének tesztelésére egy 5-szörös keresztvalidációs (StratifiedGroupKFold) módszert alkalmaztam. Ennek az eljárásnak a lényege, hogy egy játékos azonos dobásai (még ha két különböző kamerából is rögzítettük őket) soha nem kerülhettek egyszerre a modell tanítására és tesztelésére használt adatok közé. Ez a szigorú csoportosítás garantálta, hogy nem jött létre adatszivárgás (data leakage), így a validációs pontosság valós képet ad a rendszer teljesítményéről.
