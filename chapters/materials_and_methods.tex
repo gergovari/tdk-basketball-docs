@@ -4,10 +4,12 @@
 %----------------------------------------------------------------------------
 
 \section{Mérésben résztvevő személyek}
-A kutatás során 7 igazolt, versenyszerű kosárlabda múlttal rendelkező játékos (6 férfi, 1 nő) bevonásával végeztem az adatgyűjtést. Kizárólag sérülésmentes sportolókat vontam be a vizsgálatba. A mérésben résztvevő összes személy jobbkezes volt. A játékosok fizikai paramétereit és tapasztalati szintjét részletesen rögzítettem (lásd \ref{tab:participants}. táblázat). A teljes minta átlagéletkora $20{,}3 \pm 0{,}5$ év, átlagos testmagassága $185{,}8 \pm 7{,}0$~cm, míg átlagos testtömege $82{,}2 \pm 8{,}3$~kg volt. A résztvevők átlagosan $12{,}7 \pm 1{,}3$ év igazolt sportmúlttal rendelkeztek. Ezek a részletes fizikai és demográfiai adatok biztosították, hogy a gépi tanulási modell megfelelő és releváns variabilitású mintán kerüljön betanításra.
+A kutatás során 7 igazolt, versenyszerű kosárlabda múlttal rendelkező játékos (6 férfi, 1 nő) bevonásával történt az adatgyűjtés. Kizárólag sérülésmentes sportolók kerültek bevonásra a vizsgálatba. A mérésben résztvevő összes személy jobbkezes volt. A játékosok fizikai paraméterei és tapasztalati szintje részletesen rögzítésre került (lásd \ref{tab:participants}. táblázat). A teljes minta átlagéletkora $20{,}3 \pm 0{,}5$ év, átlagos testmagassága $185{,}8 \pm 7{,}0$~cm, míg átlagos testtömege $82{,}2 \pm 8{,}3$~kg volt. A résztvevők átlagosan $12{,}7 \pm 1{,}3$ év igazolt sportmúlttal rendelkeztek. Az egyes mérések előtt a sportolók adatai rögzítésre kerültek (név, testmagasság, testtömeg, kosárlabdával eltöltött évek száma) és a résztvevők tájékoztatva lettek a mérés menetéről. A résztvevők írásos beleegyezést adtak. A rögzített adatok kizárólag kutatási céllal kerülnek feldolgozásra és azok tárolása a személyiségi jogoknak megfelelően történik. A kutatást a Testnevelési Egyetem Tudományos és Kutatásetikai Bizottsága engedélyezte (TE-KEB/No04/2024).
 
 \begin{table}[!ht]
     \centering
+    \caption{A mérésben résztvevő játékosok fizikai és demográfiai adatai. Valamennyi résztvevő jobbkezes volt.}
+    \label{tab:participants}
     \begin{tabular}{lcccc}
         \toprule
         \textbf{Nem} & \textbf{Életkor (év)} & \textbf{Testmagasság (cm)} & \textbf{Testtömeg (kg)} & \textbf{Tapasztalat (év)} \\
@@ -21,14 +23,19 @@ A kutatás során 7 igazolt, versenyszerű kosárlabda múlttal rendelkező ját
         Férfi        & 19                    & 193                        & 89                      & 12                        \\
         \bottomrule
     \end{tabular}
-    \caption{A mérésben résztvevő játékosok fizikai és demográfiai adatai. Valamennyi résztvevő jobbkezes volt.}
-    \label{tab:participants}
 \end{table}
 
 \section{Mérési eszközök és beállítás}
-A vizsgálat során a videóalapú pózbecslés mellett egy hagyományos, \textbf{OptiTrack Motive} 3D optikai mozgáskövető (mocap) rendszert is alkalmaztam referenciaként és a gépi tanulási modellek pontosságának növelése érdekében. A felvételeket párhuzamosan két okostelefonnal (egy Android és egy iOS rendszerű készülékkel) is rögzítettem, egységesen 1080p (Full HD) felbontásban és 60 fps (képkocka/másodperc) rögzítési sebességgel. A monokuláris pózbecslő rendszerek sajátossága, hogy nem igényelnek hagyományos 3D kamera kalibrációt, azonban a konzisztencia érdekében a kamerák dőlésszögét és magasságát minden felvételnél fixen tartottam.
+A vizsgálat során a videóalapú pózbecslés mellett egy OptiTrack (NaturalPoint, Inc., Corvallis, OR, USA) típusú 3D optikai mozgáskövető (MoCap) rendszer is alkalmazásra került referenciaként és a gépi tanulási modellek pontosságának növelése érdekében. A felvételek párhuzamosan két okostelefonnal (egy Android és egy iOS rendszerű készülékkel) is rögzítésre kerültek, egységesen 1080p (Full HD) felbontásban és 60 fps (képkocka/másodperc) rögzítési sebességgel. A monokuláris pózbecslő rendszerek sajátossága, hogy nem igényelnek hagyományos 3D kamera kalibrációt, azonban a konzisztencia érdekében a kamerák dőlésszöge és magassága minden felvételnél fixen maradt.
 
-A \ref{fig:camera_setup}. ábra mutatja a mérés elrendezését. A játékos a szabványos büntetővonalon helyezkedett el, míg a kamerákat a játékostól balra, illetve jobbra, a gyűrűhöz kissé közelebb eső fix pozíciókban (oldalnézetből) állítottam fel, biztosítva, hogy a játékos teljes teste végig a látótérben maradjon.
+A \ref{fig:camera_setup}. ábra mutatja a mérés elrendezését. A játékos a szabványos büntetővonalon helyezkedett el, míg a kamerák a játékostól balra, illetve jobbra, a gyűrűhöz kissé közelebb eső fix pozíciókban (oldalnézetből) álltak fel, biztosítva, hogy a játékos teljes teste végig a látótérben maradjon. A markerelrendezés pontos anatómiai lokációit a \ref{fig:mocap_markers}. ábra szemlélteti.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\textwidth, keepaspectratio]{imgs/mocap_markers.png}
+    \caption{A fényvisszaverő markerek standard anatómiai elrendezése (OptiTrack Motive szoftverhez).}
+    \label{fig:mocap_markers}
+\end{figure}
 
 \begin{figure}[!ht]
     \centering
@@ -46,26 +53,32 @@ A \ref{fig:camera_setup}. ábra mutatja a mérés elrendezését. A játékos a 
         % Játékos
         \filldraw[black] (0, 4.5) circle (0.15) node[above=0.2cm] {Játékos};
 
-        % Kamerák
+        % Kamerák (Okostelefonok)
         \node[draw, rectangle, fill=gray!20, minimum width=1cm, minimum height=0.5cm] (camL) at (-3.5, 2.5) {Kamera (Bal)};
         \node[draw, rectangle, fill=gray!20, minimum width=1cm, minimum height=0.5cm] (camR) at (3.5, 2.5) {Kamera (Jobb)};
+
+        % MoCap kamerák (infravörös)
+        \filldraw[red!80] (-3.8, 5) circle (0.1) node[left] {\tiny MoCap};
+        \filldraw[red!80] (3.8, 5) circle (0.1) node[right] {\tiny MoCap};
+        \filldraw[red!80] (-3.5, 0.5) circle (0.1) node[left] {\tiny MoCap};
+        \filldraw[red!80] (3.5, 0.5) circle (0.1) node[right] {\tiny MoCap};
 
         % Kamera látószögek
         \draw[dashed, ->] (camL.east) -- (-0.2, 4.4);
         \draw[dashed, ->] (camR.west) -- (0.2, 4.4);
 
     \end{tikzpicture}
-    \caption{A mérés sematikus elrendezése. A kamerák a játékoshoz képest oldalirányban, a gyűrű felé tolva helyezkedtek el.}
+    \caption{A mérés sematikus elrendezése. A piros pontok a MoCap kamerákat, a szürke téglalapok az okostelefonokat jelölik.}
     \label{fig:camera_setup}
 \end{figure}
 
 \section{Mérési protokoll}
-A videófelvételeket valós környezetben, szabványos kosárlabdapályán készítettem. A mérést megelőzően a játékosok egy rövid, sportágspecifikus bemelegítést végeztek, amely 3-8 szabadon választott bemelegítő büntetődobásból állt.
+A videófelvételek valós környezetben, szabványos kosárlabdapályán készültek. A mérést megelőzően a játékosok egy rövid, sportágspecifikus bemelegítést végeztek, amely 3-8 szabadon választott bemelegítő büntetődobásból állt.
 
-Ezt követően minden résztvevő 4 vagy 5 sorozatban hajtott végre 5-5 dobást. A dobások között 5-10 másodperc, míg a sorozatok között 1 perc pihenőidőt biztosítottam a fáradás minimalizálása érdekében. Néhány esetben egy-egy sorozatot technikai okok (pl. kitakarás) miatt újra kellett rögzítenem, illetve előfordult, hogy egyes játékosok kifejezett kérésére egy további (5.) sorozatot is felvettem. A felvételeken minden dobás kimenetelét (sikeres vagy sikertelen) manuálisan rögzítettem, amely elengedhetetlen feltétele volt a felügyelt gépi tanulásnak.
+Ezt követően minden résztvevő 4 sorozatban hajtott végre 5-5 dobást. A dobások között 5-10 másodperc, míg a sorozatok között 1 perc pihenőidő állt rendelkezésre a fáradás minimalizálása érdekében. Néhány esetben egy-egy sorozatot technikai okok (pl. kitakarás) miatt újra kellett rögzíteni. A felvételeken minden dobás kimenetele (sikeres vagy sikertelen) manuálisan rögzítésre került, amely elengedhetetlen feltétele volt a felügyelt gépi tanulásnak.
 
 \section{Adatfeldolgozás}
-A szoftveres adatfeldolgozás során nyertem ki a biomechanikai paramétereket a videókból. A folyamat lépéseit a \ref{fig:pipeline_flowchart}. ábra szemlélteti.
+A szoftveres adatfeldolgozás során kerültek kinyerésre a biomechanikai paraméterek a videókból. A folyamat lépéseit a \ref{fig:pipeline_flowchart}. ábra szemlélteti.
 
 \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!10, rounded corners]
 \tikzstyle{arrow} = [thick,->,>=stealth]
@@ -90,14 +103,22 @@ A szoftveres adatfeldolgozás során nyertem ki a biomechanikai paramétereket a
     \label{fig:pipeline_flowchart}
 \end{figure}
 
-A nyers videófelvételeket első lépésben automatikusan feldaraboltam, így önálló dobási klipek jöttek létre. A 3. lépésben (Pózbecslés) két különböző marker nélküli algoritmust integráltam a rendszerbe, amelyeket a precízebb elemzés érdekében kiegészítettem az OptiTrack rendszerből származó adatokkal:
+A nyers videófelvételek első lépésben automatikusan feldarabolásra kerültek, így önálló dobási klipek jöttek létre. A 3. lépésben (Pózbecslés) két különböző marker nélküli algoritmus integrációja történt meg, amelyeket a precízebb elemzés érdekében az OptiTrack rendszerből származó adatok egészítettek ki:
 \begin{itemize}
     \item \textbf{YOLO (You Only Look Once):} GPU-ra optimalizált (TensorRT gyorsítással), ami 17 alapvető 2D kulcspontot azonosít.
     \item \textbf{MediaPipe:} 33 darab térbeli (3D) kulcspontot (köztük a kézfej pontjait) határoz meg. CPU-n fut, de párhuzamosítással kellően gyors, és a több referenciapont miatt részletesebb kinematikai elemzést tesz lehetővé.
-    \item \textbf{OptiTrack Motive (Mocap):} Marker-alapú rendszer, amely fizikai markerek alapján milliméteres pontossággal követi a csontváz (skeleton) térbeli mozgását. Az adatok feldolgozásánál egy robusztus algoritmust alkalmaztam a különböző rögzítési azonosítók (pl. Skeleton1, Skeleton3) felismerésére. A rendszer minden dobásnál fixen ellenőrizte a legfontosabb 9 alapízület (pl. csukló, könyök, váll, térd) meglétét.
+    \item \textbf{OptiTrack Motive (MoCap):} Marker-alapú rendszer, amely fizikai markerek alapján milliméteres pontossággal követi a csontváz (skeleton) térbeli mozgását. Az adatok feldolgozásánál egy robusztus algoritmus gondoskodott a különböző rögzítési azonosítók (pl. Skeleton1, Skeleton3) felismeréséről. A rendszer minden dobásnál fixen ellenőrizte a legfontosabb 9 alapízület (pl. csukló, könyök, váll, térd) meglétét.
 \end{itemize}
 
-A felismert kulcspontok (illetve az OptiTrack markerek) alapján kiszámítottam a vizsgált ízületi szögeket (például a térdflexió és a könyök extenzió szögeit). A dobás elengedési pontja (release point) a videós adatoknál a csukló Y-koordinátájának (függőleges) maximális értékéhez, az OptiTrack adatoknál pedig az ujjak markerének csúcspontjához lett rendelve. A Mocap adatok esetében a marker-kiesések kompenzálására az egyedi ujjmarkerek hiánya esetén az alapértelmezett kézfej (FIN) marker szolgált referenciaként, így garantálva a dobásonkénti konstans 527 bemeneti változót (feature).
+\begin{figure}[!ht]
+    \centering
+    % Placeholder a kért képeknek
+    \includegraphics[width=0.9\textwidth, keepaspectratio]{example-image-a}
+    \caption{Vizuális összehasonlítás: A mozgás rögzítése a YOLO, a MediaPipe és az OptiTrack MoCap rendszerek által egyidejűleg.}
+    \label{fig:tracking_comparison}
+\end{figure}
+
+A felismert kulcspontok (illetve a MoCap markerek) alapján kiszámításra kerültek a vizsgált biomechanikai paraméterek (a térd flexiós szöge, a csípő flexiós szöge, a könyök flexiós szöge, valamint a Dempster-féle modell \cite{Mullineaux2010} alapján számított testtömeg-középpont vertikális elmozdulása). A dobás elengedési pontja (release point) mind a videós adatoknál, mind az OptiTrack MoCap adatoknál a csukló Y-koordinátájának (függőleges) maximális értékéhez lett rendelve a módszertani konzisztencia megőrzése érdekében, így garantálva a dobásonkénti konstans 527 bemeneti változót (feature).
 
 A nyers idősorok zajszűréséhez egy Gauss-simítást (Gaussian filter) alkalmaztam. Fontos megjegyezni, hogy bár a biomechanikában gyakran használnak Butterworth szűrőt, a jelenlegi szűrési eljárást azért választottam, mert ez a módszer kiválóan megőrzi a görbék lokális maximumait és minimumait anélkül, hogy fáziseltolódást okozna (vagyis az elengedés pillanatának időbeli helyzete nem tolódott el).
 

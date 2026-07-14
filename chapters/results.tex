@@ -4,12 +4,27 @@
 %----------------------------------------------------------------------------
 
 \section{A szoftveres feldolgozás teljesítménye}
-A kifejlesztett rendszeremmel sikeresen feldolgoztam az izolált videófelvételeket. A YOLO algoritmus grafikus kártyán futtatott, hardveresen gyorsított verziója kiemelkedően magas képkocka/másodperc (FPS) feldolgozási sebességet biztosított. A MediaPipe ezzel szemben a 33 darab, térbeli mélységinformációval is rendelkező kulcspont miatt lassabbnak bizonyult, de a párhuzamosítási technikák révén a feldolgozás átbocsátóképessége a gyakorlatban is használható szintre emelkedett. A Gauss-simításon alapuló zajszűrés mindkét technológia esetében sikeresen eliminálta a kulcspontok apró remegéseit (\textit{jittering}).
+A kifejlesztett rendszer alkalmasnak bizonyult az izolált videófelvételek megfelelő sebességű feldolgozására. A YOLO algoritmus grafikus kártyán futtatott, hardveresen gyorsított verziója kiemelkedően magas képkocka/másodperc (FPS) feldolgozási sebességet biztosított. A MediaPipe ezzel szemben a 33 darab, térbeli mélységinformációval is rendelkező kulcspont miatt lassabbnak bizonyult, de a párhuzamosítási technikák révén a feldolgozás átbocsátóképessége a gyakorlatban is használható szintre emelkedett. A Gauss-simításon alapuló zajszűrés mindkét technológia esetében hatékonyan eliminálta a kulcspontok apró remegéseit (\textit{jittering}).
 
-A vizualizáció részeként legenerált áttetsző képernyőn (lásd \ref{fig:debug_hud}. ábra) megfigyeltem, hogy az algoritmusok stabilan követik a játékosok mozgását, és az ebből számolt ízületi szögek (térd-, csípő- és könyökszög) megegyeznek a várt biomechanikai paraméterekkel.
+A vizualizáció részeként legenerált áttetsző képernyőn (lásd \ref{fig:debug_hud}. ábra) megfigyelhető volt, hogy az algoritmusok stabilan követik a játékosok mozgását, és az ebből számolt ízületi szögek (térd flexiós szöge, csípő flexiós szöge, könyök flexiós szöge) megegyeznek az OptiTrack MoCap rendszer által mért validált biomechanikai paraméterekkel.
 
-\section{A dobás fázisainak azonosítása}
-Az elengedési pont (release point) detektálására szolgáló algoritmus megbízhatóan azonosította a dobás tetőpontját. Az adatok alapján rögzítettem a sikeres és sikertelen dobások kinematikai görbéit. Megállapítottam, hogy a sikeres dobásoknál a könyök és térd időbeli extenziója szinkronban történik, és a görbék lefutása a játékosok több dobása esetén is szorosabb, konzisztensebb mintázatot mutat. Ezzel szemben a rontott kísérleteknél megnövekedett a mozgás variabilitása, és gyakran aszinkronitást figyeltem meg az alsó és felső végtagok mozgásláncában az elengedés pillanatában. Ezt a jelenséget koncepcionálisan a \ref{fig:kinematic_sync}. ábra szemlélteti.
+\section{A dobás fázisainak azonosítása és kinematikája}
+Az elengedési pont (release point) detektálására szolgáló algoritmus megbízhatóan azonosította a dobás tetőpontját. Az adatok alapján rögzítésre kerültek a sikeres és sikertelen dobások kinematikai görbéi. A vizsgált adatpontok (lásd \ref{tab:kinematics}. táblázat) alapján megállapítást nyert, hogy a sikeres dobásoknál a mozgás jelentősen kisebb szóródást mutat az elengedés pillanatában, míg a rontott kísérleteknél megnövekedett a mozgás variabilitása, és gyakran aszinkronitás volt megfigyelhető az alsó és felső végtagok mozgásláncában az elengedés pillanatában. Ezt a jelenséget koncepcionálisan a \ref{fig:kinematic_sync}. ábra szemlélteti.
+
+\begin{table}[!ht]
+\centering
+\caption{Sikeres és rontott dobások kinematikai jellemzői (átlag $\pm$ szórás), Dempster-féle tömegközéppont modellel kiegészítve az OptiTrack adatok alapján.}
+\label{tab:kinematics}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Kinematikai paraméter} & \textbf{Sikeres dobások} & \textbf{Rontott dobások} \\
+\midrule
+Térdflexió maximum ($^\circ$) & $115,1 \pm 3,5$ & $115,0 \pm 8,9$ \\
+Könyök extenzió elengedéskor ($^\circ$) & $168,8 \pm 2,2$ & $168,6 \pm 8,2$ \\
+Tömegközéppont (CoM) max magasság (m) & $1,24 \pm 0,02$ & $1,22 \pm 0,06$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[!ht]
 \centering
