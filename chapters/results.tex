@@ -45,10 +45,13 @@ Tömegközéppont (CoM) max magasság (m) & $1,24 \pm 0,02$ & $1,22 \pm 0,06$ \\
     % Térd
     \addplot[thick, blue, smooth] coordinates {(0, 120) (25, 100) (50, 175) (75, 178) (100, 178)};
     \addlegendentry{Térd};
+    % Csípő
+    \addplot[thick, green!70!black, smooth] coordinates {(0, 130) (25, 110) (52, 178) (75, 180) (100, 180)};
+    \addlegendentry{Csípő};
     % Könyök
-    \addplot[thick, red, smooth] coordinates {(0, 90) (25, 75) (50, 178) (75, 180) (100, 175)};
+    \addplot[thick, red, smooth] coordinates {(0, 90) (25, 75) (54, 178) (75, 180) (100, 175)};
     \addlegendentry{Könyök};
-    \draw[dashed, black] (axis cs:50,60) -- (axis cs:50,190);
+    \draw[dashed, black] (axis cs:54,60) -- (axis cs:54,190);
     \end{axis}
 \end{tikzpicture}
 \hfill
@@ -68,14 +71,18 @@ Tömegközéppont (CoM) max magasság (m) & $1,24 \pm 0,02$ & $1,22 \pm 0,06$ \\
     % Térd (earlier peak)
     \addplot[thick, blue, smooth] coordinates {(0, 120) (20, 100) (35, 175) (75, 178) (100, 178)};
     \addlegendentry{Térd};
+    % Csípő (delayed peak)
+    \addplot[thick, green!70!black, smooth] coordinates {(0, 130) (25, 110) (50, 178) (80, 180) (100, 180)};
+    \addlegendentry{Csípő};
     % Könyök (later peak)
     \addplot[thick, red, smooth] coordinates {(0, 90) (35, 75) (65, 178) (85, 180) (100, 175)};
     \addlegendentry{Könyök};
-    \draw[dashed, black] (axis cs:35,60) -- (axis cs:35,190) node[above right] {\tiny Térd csúcs};
-    \draw[dashed, black] (axis cs:65,60) -- (axis cs:65,190) node[above left] {\tiny Könyök csúcs};
+    \draw[dashed, black] (axis cs:35,60) -- (axis cs:35,190) node[above right] {\tiny Térd};
+    \draw[dashed, black] (axis cs:50,60) -- (axis cs:50,190) node[above right] {\tiny Csípő};
+    \draw[dashed, black] (axis cs:65,60) -- (axis cs:65,190) node[above left] {\tiny Könyök};
     \end{axis}
 \end{tikzpicture}
-\caption{Szemléltető ábra: A könyök és a térd extenziójának kinematikai időfázisai sikeres (bal) és rontott (jobb) dobások esetében. A rontott dobásoknál megfigyelhető az ízületek aszinkronitása és a mozgás kinetikai láncának szétesése.}
+\caption{Szemléltető ábra: A kinetikai lánc (térd, csípő és könyök extenzió) időfázisai sikeres (bal) és rontott (jobb) dobások esetében. A rontott dobásoknál megfigyelhető az ízületek aszinkronitása és a láncolat szétesése.}
 \label{fig:kinematic_sync}
 \end{figure}
 
